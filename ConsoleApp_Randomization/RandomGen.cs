@@ -76,7 +76,7 @@ namespace ConsoleApp_Randomization
 
             for (int i = 0; i < chars.Length; i++)
             {
-                chars[i] = (char)(chars[i] * 2);
+                chars[i] = (char)(chars[i] + 2); 
             }
 
             return new string(chars);
@@ -88,7 +88,7 @@ namespace ConsoleApp_Randomization
 
             for (int i = 0; i < chars.Length; i++)
             {
-                chars[i] = (char)(chars[i] / 2);
+                chars[i] = (char)(chars[i] - 2);
             }
 
             return new string(chars);

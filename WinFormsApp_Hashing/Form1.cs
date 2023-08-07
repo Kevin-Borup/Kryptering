@@ -34,7 +34,7 @@ namespace WinFormsApp_Hashing
 
             encrypt.EncryptText(msgBytes, out byte[] hash, out byte[] encryptedBytes);
 
-            this.tbASCIIOutput.Text = BitConverter.ToString(encryptedBytes).Replace("-", string.Empty);
+            this.tbASCIIOutput.Text = Convert.ToBase64String(encryptedBytes);
             this.tbHexOutput.Text = Convert.ToHexString(encryptedBytes);
         }
 

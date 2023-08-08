@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace WinFormsApp_PasswordStorage
 {
+    /// <summary>
+    /// An interface to easily implement the changepage event on all UserControls.
+    /// </summary>
     public class ChangePageControl : UserControl
     {
         public delegate void ChangePageEventHandler(object sender, ChangePageEventArgs e);

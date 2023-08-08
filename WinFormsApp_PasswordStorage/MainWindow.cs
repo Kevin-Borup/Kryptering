@@ -33,6 +33,7 @@ namespace WinFormsApp_PasswordStorage
 
         private void ChangePageEvent(object sender, ChangePageEventArgs e)
         {
+            //Changes the page based on the recieved Page enum
             switch (e.Page)
             {
                 case Page.Login:

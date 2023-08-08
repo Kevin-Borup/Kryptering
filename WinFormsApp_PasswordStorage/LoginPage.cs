@@ -24,6 +24,7 @@ namespace WinFormsApp_PasswordStorage
 
         private void btnRegistration_Click(object sender, EventArgs e)
         {
+            // Change the page to registration
             ChangePage(Page.Registration);
         }
 
@@ -61,8 +62,11 @@ namespace WinFormsApp_PasswordStorage
                 try
                 {
                     InformationHandler infoHandler = new InformationHandler();
+                    // Check if the username doesn't exist, if it does, flip the result.
+                    // The name shouldn't be available.
                     if (!infoHandler.CheckUsername(username))
                     {
+                        // Check if the existing users typed password, matched the one stored.
                         if (infoHandler.CheckUserCred(username, password))
                         {
                             ChangePage(Page.Account);

@@ -60,8 +60,10 @@ namespace WinFormsApp_PasswordStorage
                 try
                 {
                     InformationHandler infoHandler = new InformationHandler();
+                    //Check if the name doesn't exist.
                     if (infoHandler.CheckUsername(username))
                     {
+                        // Attempt to store the new user, as the name is available.
                         if (infoHandler.StoreUser(username, password))
                         {
                             ChangePage(Page.Account);

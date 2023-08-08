@@ -13,6 +13,9 @@ namespace WinFormsApp_PasswordStorage
         Account
     }
 
+    /// <summary>
+    /// Costom event arg to use when invoking ChangePage.
+    /// </summary>
     public class ChangePageEventArgs
     {
         public ChangePageEventArgs(Page page) { this.Page = page; }

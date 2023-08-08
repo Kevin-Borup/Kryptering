@@ -12,23 +12,36 @@ namespace WinFormsApp_PasswordStorage
         private int byteLength = 32;
         private int encryptionIterations = 5000;
 
-        public void EncryptPassword(string password, out string pass, out string salt)
+        /// <summary>
+        /// Encrypts the password with SHA512 and salt, returns the new pass and used salt.
+        /// </summary>
+        /// <param name="password"></param>
+        /// <param name="pass"></param>
+        /// <param name="salt"></param>
+        public void EncryptPassword(string password, out byte[] pass, out byte[] salt)
         {
-            byte[] hashSalt = GenerateSalt();
-            pass = Convert.ToBase64String(HashPassword(Encoding.UTF8.GetBytes(password), hashSalt, encryptionIterations));
-            salt = Convert.ToBase64String(hashSalt);
+            byte[] hashSalt = GenerateSalt(); // This salt is used to further convolute the stored values.
+            pass = HashPassword(Encoding.UTF8.GetBytes(password), hashSalt, encryptionIterations);
+            salt = hashSalt;
         }
 
-        public bool CheckPassword(string password, string pass, string salt)
+        /// <summary>
+        /// Check if the password ends with the same hash value, as the one stored on the database.
+        /// </summary>
+        /// <param name="password"></param>
+        /// <param name="pass"></param>
+        /// <param name="salt"></param>
+        /// <returns></returns>
+        public bool CheckPassword(string password, byte[] pass, byte[] salt)
         {
             bool equal = false;
-            byte[] bytedPass = Convert.FromBase64String(pass);
-            byte[] hashSalt = Convert.FromBase64String(salt);
-            byte[] newPass = HashPassword(Encoding.UTF8.GetBytes(password), hashSalt, encryptionIterations);
+            // Hash the input to compare with the one on the database.
+            byte[] newPass = HashPassword(Encoding.UTF8.GetBytes(password), salt, encryptionIterations);
 
-            if (bytedPass.Length == newPass.Length)
+            if (pass.Length == newPass.Length)
             {
-                equal = CompareByteArrays(bytedPass, newPass, newPass.Length);
+                // If they are same length, and each element of the byte array is equal, then it's the same hash.
+                equal = CompareByteArrays(pass, newPass, newPass.Length);
             }
 
             return equal;
@@ -53,6 +66,7 @@ namespace WinFormsApp_PasswordStorage
 
         private byte[] HashPassword(byte[] toBeHashed, byte[] salt, int numberOfRounds)
         {
+            // Rfc2898DeriveBytes salts the byte password, followed by hashing it the defined amount of times, with the selected SHA512
             using (var rfc2898 = new Rfc2898DeriveBytes(toBeHashed, salt, numberOfRounds, HashAlgorithmName.SHA512))
             {
                 return rfc2898.GetBytes(byteLength);

@@ -8,7 +8,13 @@ namespace WinFormsApp_PasswordStorage
 {
     internal class Account
     {
-        public Account(string username, string password, string salt)
+        /// <summary>
+        /// An account class to contain the data for easier transfer
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <param name="salt"></param>
+        public Account(string username, byte[] password, byte[] salt)
         {
             this.Username = username;
             this.Password = password;
@@ -16,7 +22,7 @@ namespace WinFormsApp_PasswordStorage
         }
 
         public string Username { get; private set; }
-        public string Password { get; private set; }
-        public string Salt { get; private set; }
+        public byte[] Password { get; private set; }
+        public byte[] Salt { get; private set; }
     }
 }

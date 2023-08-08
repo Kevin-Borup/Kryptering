@@ -15,6 +15,11 @@ namespace WinFormsApp_PasswordStorage
         public LoginPage()
         {
             InitializeComponent();
+
+            tbUsername.KeyDown += textBox_KeyDown;
+            tbPassword.KeyDown += textBox_KeyDown;
+
+            ResetUI();
         }
 
         private void btnRegistration_Click(object sender, EventArgs e)
@@ -22,17 +27,62 @@ namespace WinFormsApp_PasswordStorage
             ChangePage(Page.Registration);
         }
 
+        private void ResetUI()
+        {
+            lblNameFeedback.Visible = false;
+            lblPassFeedback.Visible = false;
+        }
+
+        private void textBox_KeyDown(object? sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                btnLogin.PerformClick();
+        }
+
         private void btnLogin_Click(object sender, EventArgs e)
         {
+            ResetUI();
+
             string username = this.tbUsername.Text;
             string password = this.tbPassword.Text;
-            if (string.IsNullOrWhiteSpace(username) && string.IsNullOrWhiteSpace(password))
-            {
-                bool succes = false;
 
-                if (succes)
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                lblNameFeedback.Text = "Type a username";
+                lblNameFeedback.Visible = true;
+            }
+            else if (string.IsNullOrWhiteSpace(password))
+            {
+                lblPassFeedback.Text = "Type a password";
+                lblPassFeedback.Visible = true;
+            }
+            else
+            {
+                try
                 {
-                    ChangePage(Page.Account);
+                    InformationHandler infoHandler = new InformationHandler();
+                    if (!infoHandler.CheckUsername(username))
+                    {
+                        if (infoHandler.CheckUserCred(username, password))
+                        {
+                            ChangePage(Page.Account);
+                        }
+                        else
+                        {
+                            lblPassFeedback.Text = "The password is incorrect";
+                            lblPassFeedback.Visible = true;
+                        }
+                    }
+                    else
+                    {
+                        lblNameFeedback.Text = "The username doesn't exist";
+                        lblNameFeedback.Visible = true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    lblPassFeedback.Text = "An error occurred";
+                    lblPassFeedback.Visible = true;
                 }
             }
         }

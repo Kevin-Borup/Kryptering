@@ -12,19 +12,21 @@ namespace WinFormsApp_PasswordStorage
         private int byteLength = 32;
         private int encryptionIterations = 5000;
 
-        public void EncryptPassword(string password, out string pass, out byte[] salt)
+        public void EncryptPassword(string password, out string pass, out string salt)
         {
-            salt = GenerateSalt();
-            pass = Convert.ToBase64String(HashPassword(Encoding.UTF8.GetBytes(password), salt, encryptionIterations));
+            byte[] hashSalt = GenerateSalt();
+            pass = Convert.ToBase64String(HashPassword(Encoding.UTF8.GetBytes(password), hashSalt, encryptionIterations));
+            salt = Convert.ToBase64String(hashSalt);
         }
 
-        private bool CheckPassword(string password, string pass, byte[] salt)
+        public bool CheckPassword(string password, string pass, string salt)
         {
             bool equal = false;
-            byte[] bytedPass = Encoding.UTF8.GetBytes(pass);
-            byte[] newPass = HashPassword(Encoding.UTF8.GetBytes(password), salt, encryptionIterations);
+            byte[] bytedPass = Convert.FromBase64String(pass);
+            byte[] hashSalt = Convert.FromBase64String(salt);
+            byte[] newPass = HashPassword(Encoding.UTF8.GetBytes(password), hashSalt, encryptionIterations);
 
-            if (pass.Length == newPass.Length)
+            if (bytedPass.Length == newPass.Length)
             {
                 equal = CompareByteArrays(bytedPass, newPass, newPass.Length);
             }

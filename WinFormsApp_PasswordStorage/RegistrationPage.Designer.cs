@@ -35,6 +35,8 @@
             label3 = new Label();
             tbUsername = new TextBox();
             label2 = new Label();
+            lblNameFeedback = new Label();
+            lblPassFeedback = new Label();
             SuspendLayout();
             // 
             // label1
@@ -49,7 +51,7 @@
             // 
             // btnRegister
             // 
-            btnRegister.Location = new Point(21, 174);
+            btnRegister.Location = new Point(16, 190);
             btnRegister.Name = "btnRegister";
             btnRegister.Size = new Size(75, 23);
             btnRegister.TabIndex = 12;
@@ -59,7 +61,7 @@
             // 
             // btnLogin
             // 
-            btnLogin.Location = new Point(273, 174);
+            btnLogin.Location = new Point(268, 190);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(88, 23);
             btnLogin.TabIndex = 11;
@@ -69,7 +71,7 @@
             // 
             // tbPassword
             // 
-            tbPassword.Location = new Point(20, 127);
+            tbPassword.Location = new Point(20, 132);
             tbPassword.Name = "tbPassword";
             tbPassword.Size = new Size(188, 23);
             tbPassword.TabIndex = 10;
@@ -77,7 +79,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(20, 109);
+            label3.Location = new Point(20, 114);
             label3.Name = "label3";
             label3.Size = new Size(57, 15);
             label3.TabIndex = 9;
@@ -99,10 +101,32 @@
             label2.TabIndex = 7;
             label2.Text = "Username";
             // 
+            // lblNameFeedback
+            // 
+            lblNameFeedback.AutoSize = true;
+            lblNameFeedback.ForeColor = Color.Brown;
+            lblNameFeedback.Location = new Point(20, 91);
+            lblNameFeedback.Name = "lblNameFeedback";
+            lblNameFeedback.Size = new Size(87, 15);
+            lblNameFeedback.TabIndex = 13;
+            lblNameFeedback.Text = "nameFeedback";
+            // 
+            // lblPassFeedback
+            // 
+            lblPassFeedback.AutoSize = true;
+            lblPassFeedback.ForeColor = Color.Brown;
+            lblPassFeedback.Location = new Point(20, 158);
+            lblPassFeedback.Name = "lblPassFeedback";
+            lblPassFeedback.Size = new Size(80, 15);
+            lblPassFeedback.TabIndex = 14;
+            lblPassFeedback.Text = "passFeedback";
+            // 
             // RegistrationPage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(lblPassFeedback);
+            Controls.Add(lblNameFeedback);
             Controls.Add(btnRegister);
             Controls.Add(btnLogin);
             Controls.Add(tbPassword);
@@ -111,7 +135,7 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "RegistrationPage";
-            Size = new Size(370, 207);
+            Size = new Size(370, 226);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -125,5 +149,7 @@
         private Label label3;
         private TextBox tbUsername;
         private Label label2;
+        private Label lblNameFeedback;
+        private Label lblPassFeedback;
     }
 }

@@ -14,15 +14,26 @@ namespace WinFormsApp_PasswordStorage
         public bool StoreUser(string username, string password)
         {
             Encryptor encryptor = new Encryptor();
-            encryptor.EncryptPassword(password, out string pass, out byte[] salt);
+            encryptor.EncryptPassword(password, out string pass, out string salt);
 
 
             Account user = new Account(username, pass, salt);
+
+            return _exchanger.InsertUser(user);
         }
 
-        public bool CheckUser()
+        public bool CheckUserCred(string username, string password)
         {
+            Encryptor encryptor = new Encryptor();
 
+            Account user = _exchanger.CheckUserCred(username);
+
+            return encryptor.CheckPassword(password, user.Password, user.Salt);
+        }
+
+        public bool CheckUsername(string username)
+        {
+            return _exchanger.CheckUsernameAvailability(username);
         }
         
 

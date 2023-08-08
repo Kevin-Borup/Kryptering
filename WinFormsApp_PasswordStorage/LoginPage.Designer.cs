@@ -35,6 +35,8 @@
             tbPassword = new TextBox();
             btnRegistration = new Button();
             btnLogin = new Button();
+            lblPassFeedback = new Label();
+            lblNameFeedback = new Label();
             SuspendLayout();
             // 
             // label1
@@ -66,7 +68,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(19, 111);
+            label3.Location = new Point(19, 116);
             label3.Name = "label3";
             label3.Size = new Size(57, 15);
             label3.TabIndex = 3;
@@ -74,14 +76,14 @@
             // 
             // tbPassword
             // 
-            tbPassword.Location = new Point(19, 129);
+            tbPassword.Location = new Point(19, 134);
             tbPassword.Name = "tbPassword";
             tbPassword.Size = new Size(188, 23);
             tbPassword.TabIndex = 4;
             // 
             // btnRegistration
             // 
-            btnRegistration.Location = new Point(237, 176);
+            btnRegistration.Location = new Point(237, 193);
             btnRegistration.Name = "btnRegistration";
             btnRegistration.Size = new Size(123, 23);
             btnRegistration.TabIndex = 5;
@@ -91,7 +93,7 @@
             // 
             // btnLogin
             // 
-            btnLogin.Location = new Point(20, 176);
+            btnLogin.Location = new Point(20, 193);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(75, 23);
             btnLogin.TabIndex = 6;
@@ -99,10 +101,32 @@
             btnLogin.UseVisualStyleBackColor = true;
             btnLogin.Click += btnLogin_Click;
             // 
+            // lblPassFeedback
+            // 
+            lblPassFeedback.AutoSize = true;
+            lblPassFeedback.ForeColor = Color.Brown;
+            lblPassFeedback.Location = new Point(19, 160);
+            lblPassFeedback.Name = "lblPassFeedback";
+            lblPassFeedback.Size = new Size(80, 15);
+            lblPassFeedback.TabIndex = 8;
+            lblPassFeedback.Text = "passFeedback";
+            // 
+            // lblNameFeedback
+            // 
+            lblNameFeedback.AutoSize = true;
+            lblNameFeedback.ForeColor = Color.Brown;
+            lblNameFeedback.Location = new Point(19, 93);
+            lblNameFeedback.Name = "lblNameFeedback";
+            lblNameFeedback.Size = new Size(87, 15);
+            lblNameFeedback.TabIndex = 9;
+            lblNameFeedback.Text = "nameFeedback";
+            // 
             // LoginPage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(lblNameFeedback);
+            Controls.Add(lblPassFeedback);
             Controls.Add(btnLogin);
             Controls.Add(btnRegistration);
             Controls.Add(tbPassword);
@@ -111,7 +135,7 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "LoginPage";
-            Size = new Size(374, 209);
+            Size = new Size(374, 228);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -125,5 +149,7 @@
         private TextBox tbPassword;
         private Button btnRegistration;
         private Button btnLogin;
+        private Label lblPassFeedback;
+        private Label lblNameFeedback;
     }
 }

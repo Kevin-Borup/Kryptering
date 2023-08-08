@@ -1,14 +1,6 @@
--- ================================================
--- Template generated from Template Explorer using:
--- Create Procedure (New Menu).SQL
---
--- Use the Specify Values for Template Parameters 
--- command (Ctrl-Shift-M) to fill in the parameter 
--- values below.
---
--- This block of comments will not be included in
--- the definition of the procedure.
--- ================================================
+USE [EncryptionBase]
+GO
+/****** Object:  StoredProcedure [dbo].[InsertUser]    Script Date: 08-08-2023 13:21:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -18,11 +10,11 @@ GO
 -- Create date: 31-05-2022
 -- Description:	Procedure to insert value into User table
 -- =============================================
-ALTER PROCEDURE InsertUser 
+ALTER PROCEDURE [dbo].[InsertUser] 
 	-- Add the parameters for the stored procedure here
 	@Username varchar(30), 
-	@pws varchar(255),
-	@Salt varchar(30)
+	@pws varbinary(32),
+	@Salt varbinary(32)
 AS
 BEGIN
 	INSERT INTO Users(
@@ -35,4 +27,3 @@ BEGIN
 	@Salt)
 
 END
-GO

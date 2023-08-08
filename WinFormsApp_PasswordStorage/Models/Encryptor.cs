@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WinFormsApp_PasswordStorage
+namespace WinFormsApp_PasswordStorage.Models
 {
     internal class Encryptor
     {

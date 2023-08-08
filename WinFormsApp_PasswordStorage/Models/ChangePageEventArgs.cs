@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WinFormsApp_PasswordStorage
+namespace WinFormsApp_PasswordStorage.Models
 {
     public enum Page
     {
@@ -18,7 +18,7 @@ namespace WinFormsApp_PasswordStorage
     /// </summary>
     public class ChangePageEventArgs
     {
-        public ChangePageEventArgs(Page page) { this.Page = page; }
+        public ChangePageEventArgs(Page page) { Page = page; }
         public Page Page { get; private set; }
     }
 }

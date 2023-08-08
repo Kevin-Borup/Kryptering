@@ -4,8 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
-namespace WinFormsApp_PasswordStorage
+namespace WinFormsApp_PasswordStorage.Models
 {
     internal class InformationHandler
     {
@@ -46,5 +45,6 @@ namespace WinFormsApp_PasswordStorage
         public bool CheckUsername(string username)
         {
             return _exchanger.CheckUsernameAvailability(username);
-        }    }
+        }
+    }
 }

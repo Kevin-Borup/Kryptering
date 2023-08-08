@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WinFormsApp_PasswordStorage
+namespace WinFormsApp_PasswordStorage.Models
 {
     internal class Account
     {
@@ -16,9 +16,9 @@ namespace WinFormsApp_PasswordStorage
         /// <param name="salt"></param>
         public Account(string username, byte[] password, byte[] salt)
         {
-            this.Username = username;
-            this.Password = password;
-            this.Salt = salt;
+            Username = username;
+            Password = password;
+            Salt = salt;
         }
 
         public string Username { get; private set; }

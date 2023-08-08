@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
-namespace WinFormsApp_PasswordStorage
+namespace WinFormsApp_PasswordStorage.Models
 {
 
     internal class Navigator

@@ -9,7 +9,7 @@ using Microsoft.VisualBasic.ApplicationServices;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace WinFormsApp_PasswordStorage
+namespace WinFormsApp_PasswordStorage.Models
 {
     internal class StorageExchanger
     {

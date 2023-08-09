@@ -41,9 +41,15 @@ namespace WinFormsApp_PasswordStorage.Models
                 CommandType = CommandType.StoredProcedure
             };
 
+            string password = Convert.ToBase64String(user.Password);
+            string salt = Convert.ToBase64String(user.Salt);
+
+            // Debugging to calculate the length of base64 string of a hashed password. Used to alocate space in the server.
+            //double base64length = password.Length;
+
             command.Parameters.AddWithValue("@Username", user.Username);
-            command.Parameters.AddWithValue("@pws", user.Password);
-            command.Parameters.AddWithValue("@Salt", user.Salt);
+            command.Parameters.AddWithValue("@pws", password);
+            command.Parameters.AddWithValue("@Salt", salt);
 
             sqlCon.Open();
 
@@ -110,15 +116,16 @@ namespace WinFormsApp_PasswordStorage.Models
 
             command.Parameters.AddWithValue("@Username", name);
 
-            command.Parameters.Add("@pws", SqlDbType.VarBinary, 32).Direction = ParameterDirection.Output;
-            command.Parameters.Add("@Salt", SqlDbType.VarBinary, 32).Direction = ParameterDirection.Output;
+            // Base64 af hash pass bruger altid 44. Nvarchar tilader at en karakter kan tage 2 bits og udvider sig efter det.
+            command.Parameters.Add("@pws", SqlDbType.NVarChar, 44).Direction = ParameterDirection.Output;
+            command.Parameters.Add("@Salt", SqlDbType.NVarChar, 44).Direction = ParameterDirection.Output;
 
             sqlCon.Open();
 
             command.ExecuteNonQuery();
 
-            byte[] pws = (byte[])command.Parameters["@pws"].Value;
-            byte[] salt = (byte[])command.Parameters["@Salt"].Value;
+            byte[] pws = Convert.FromBase64String(Convert.ToString(command.Parameters["@pws"].Value));
+            byte[] salt = Convert.FromBase64String(Convert.ToString(command.Parameters["@Salt"].Value));
 
             sqlCon.Close();
             command.Dispose();

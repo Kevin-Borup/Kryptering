@@ -13,8 +13,8 @@ GO
 ALTER PROCEDURE [dbo].[InsertUser] 
 	-- Add the parameters for the stored procedure here
 	@Username varchar(30), 
-	@pws varbinary(32),
-	@Salt varbinary(32)
+	@pws nvarchar(44),
+	@Salt nvarchar(44)
 AS
 BEGIN
 	INSERT INTO Users(

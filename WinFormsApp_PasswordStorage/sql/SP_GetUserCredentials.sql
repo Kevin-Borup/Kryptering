@@ -15,8 +15,8 @@ ALTER PROCEDURE [dbo].[GetUserCredentials]
 	@Username varchar(30),
 
     -- Output Parameter
-	@pws varbinary(32) = null OUTPUT,
-	@Salt varbinary(32) = null OUTPUT
+	@pws nvarchar(44) OUTPUT,
+	@Salt nvarchar(44) OUTPUT
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from

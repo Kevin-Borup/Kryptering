@@ -251,7 +251,7 @@
             btnRetrieve.UseVisualStyleBackColor = true;
             btnRetrieve.Click += btnRetrieve_Click;
             // 
-            // MainWindow
+            // RSAReciever
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -279,8 +279,8 @@
             Controls.Add(label2);
             Controls.Add(tbCipherBytes);
             Controls.Add(label1);
-            Name = "MainWindow";
-            Text = "Form1";
+            Name = "RSAReciever";
+            Text = "PSA Reciever";
             ResumeLayout(false);
             PerformLayout();
         }

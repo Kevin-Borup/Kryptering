@@ -18,23 +18,24 @@ namespace WinFormsApp_RSASender
 
             if (File.Exists(filePath)) { File.Delete(filePath); }
 
-            using (StreamWriter writer = new StreamWriter(filePath))
-            {
-                writer.WriteLine(Convert.ToBase64String(msg));
-            }
+            File.WriteAllBytes(filePath, msg);
         }
 
         /// <summary>
-        /// Reads all the text found in the publickey.xml
+        /// Reads all the text found in the binary publickey.xml
         /// </summary>
         /// <returns></returns>
         public string GetXMLPublicData()
         {
             string publicKeyXmlPath = "C:\\ZBC Data-Kommunikation\\H3\\Kryptering\\Asymmetric_Encryption_RSA\\publickey.xml";
 
+
+
             if (File.Exists(publicKeyXmlPath))
             {
-                return File.ReadAllText(publicKeyXmlPath);
+                byte[] publicBytes = File.ReadAllBytes(publicKeyXmlPath);
+
+                return Encoding.UTF8.GetString(publicBytes);
             }
 
             return string.Empty;

@@ -46,7 +46,7 @@
             label1.Location = new Point(16, 122);
             label1.Name = "label1";
             label1.Size = new Size(67, 15);
-            label1.TabIndex = 0;
+            label1.TabIndex = 1;
             label1.Text = "Public Data";
             // 
             // label2
@@ -97,7 +97,7 @@
             tbPlainText.Location = new Point(16, 27);
             tbPlainText.Name = "tbPlainText";
             tbPlainText.Size = new Size(276, 23);
-            tbPlainText.TabIndex = 6;
+            tbPlainText.TabIndex = 0;
             tbPlainText.KeyDown += tbPlainText_KeyDown;
             // 
             // tbCipherText
@@ -127,7 +127,7 @@
             btnSend.UseVisualStyleBackColor = true;
             btnSend.Click += btnSend_Click;
             // 
-            // MainWindow
+            // RSASender
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -142,8 +142,8 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
-            Name = "MainWindow";
-            Text = "MainWindow";
+            Name = "RSASender";
+            Text = "PSA Sender";
             ResumeLayout(false);
             PerformLayout();
         }

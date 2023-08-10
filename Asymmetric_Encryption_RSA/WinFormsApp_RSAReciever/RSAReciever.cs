@@ -31,7 +31,7 @@ namespace WinFormsApp_RSAReciever
             this.tbP.Text = parameters[6];
             this.tbQ.Text = parameters[7];
         }
-        
+
         /// <summary>
         /// On click, the message written it acquired, as well as decrypted with the private key. 
         /// </summary>

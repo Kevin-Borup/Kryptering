@@ -10,7 +10,7 @@ namespace WinFormsApp_RSAReciever
     internal class FileManager
     {
         /// <summary>
-        /// Writes the public key into an XML, the previous is deleted and replaced by the current one.
+        /// Writes the public key into a binary XML, the previous is deleted and replaced by the current one.
         /// </summary>
         /// <param name="publicKey"></param>
         public void PrintPublicKey(string publicKey)
@@ -22,10 +22,7 @@ namespace WinFormsApp_RSAReciever
                 File.Delete(publicKeyXmlPath);
             }
 
-            using (StreamWriter writer = new StreamWriter(publicKeyXmlPath))
-            {
-                writer.WriteLine(publicKey);
-            }
+            File.WriteAllBytes(publicKeyXmlPath, Encoding.UTF8.GetBytes(publicKey));
         }
 
         /// <summary>
@@ -38,7 +35,7 @@ namespace WinFormsApp_RSAReciever
 
             if (File.Exists(filePath))
             {
-                return Convert.FromBase64String(File.ReadAllText(filePath));
+                return File.ReadAllBytes(filePath);
             }
 
             return new byte[0];

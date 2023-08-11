@@ -50,7 +50,6 @@
             tbDQ = new TextBox();
             tbQ = new TextBox();
             tbP = new TextBox();
-            btnRetrieve = new Button();
             SuspendLayout();
             // 
             // label1
@@ -64,10 +63,10 @@
             // 
             // tbCipherBytes
             // 
-            tbCipherBytes.Location = new Point(95, 27);
+            tbCipherBytes.Location = new Point(19, 27);
             tbCipherBytes.Name = "tbCipherBytes";
             tbCipherBytes.ReadOnly = true;
-            tbCipherBytes.Size = new Size(269, 23);
+            tbCipherBytes.Size = new Size(345, 23);
             tbCipherBytes.TabIndex = 1;
             // 
             // label2
@@ -241,22 +240,11 @@
             tbP.Size = new Size(262, 23);
             tbP.TabIndex = 20;
             // 
-            // btnRetrieve
-            // 
-            btnRetrieve.Location = new Point(19, 26);
-            btnRetrieve.Name = "btnRetrieve";
-            btnRetrieve.Size = new Size(75, 23);
-            btnRetrieve.TabIndex = 22;
-            btnRetrieve.Text = "Retrieve";
-            btnRetrieve.UseVisualStyleBackColor = true;
-            btnRetrieve.Click += btnRetrieve_Click;
-            // 
             // RSAReciever
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(389, 439);
-            Controls.Add(btnRetrieve);
             Controls.Add(tbQ);
             Controls.Add(tbP);
             Controls.Add(tbIQ);
@@ -281,7 +269,6 @@
             Controls.Add(label1);
             Name = "RSAReciever";
             Text = "PSA Reciever";
-            Shown += RSAReciever_Shown;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -310,6 +297,5 @@
         private TextBox tbDQ;
         private TextBox tbQ;
         private TextBox tbP;
-        private Button btnRetrieve;
     }
 }

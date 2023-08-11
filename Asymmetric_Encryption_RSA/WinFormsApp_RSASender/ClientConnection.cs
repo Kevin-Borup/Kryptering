@@ -26,11 +26,19 @@ namespace WinFormsApp_RSASender
             ConnectClient();
         }
 
+        /// <summary>
+        /// Connect the client to the server
+        /// </summary>
         private void ConnectClient()
         {
             client.Connect(ip, 13);
         }
 
+        /// <summary>
+        /// Recieve the public key from the socket connection to the server.
+        /// Retries until achieved.
+        /// </summary>
+        /// <returns></returns>
         public byte[] GetPublicKey()
         {
             while (true)
@@ -51,6 +59,10 @@ namespace WinFormsApp_RSASender
             }
         }
 
+        /// <summary>
+        /// Sends the recieved bytes over the Socket client
+        /// </summary>
+        /// <param name="bytes"></param>
         public void SendMsg(byte[] bytes)
         {
             if (client != null && client.Connected)

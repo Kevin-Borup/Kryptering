@@ -1,0 +1,9 @@
+The industry standard:
+    A hybrid mode that mixes Asymmetric encryption with Symmetric encryption. 
+    The session is opened with RSA to start with the highest security.
+    A symmetric key is then exchanged with RSA, to improve speed and data length per encryption.
+    This new key is now used in data exchange.
+
+    Even newer stanard:
+        The symmetric key is then used to generate a new symmetric key every 30 seconds.
+        This creates a 30 second session per key, any intruder will only maintain a session for 30 seconds, before becoming invalidated. 

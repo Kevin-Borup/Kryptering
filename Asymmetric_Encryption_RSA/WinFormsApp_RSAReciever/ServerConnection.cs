@@ -41,11 +41,19 @@ namespace WinFormsApp_RSAReciever
             client = server.Accept();
         }
 
+        /// <summary>
+        /// Broadcast the public key to the new connection.
+        /// </summary>
+        /// <param name="publicKey"></param>
         private void WriteKey(byte[] publicKey)
         {
             client.Send(publicKey, 0);
         }
 
+        /// <summary>
+        /// Constant while-loop, to repeatedly listen for messages.
+        /// Reconnects if the connection is lost.
+        /// </summary>
         public void StartRecieving()
         {
             try
@@ -54,13 +62,11 @@ namespace WinFormsApp_RSAReciever
                 {
                     if (client.Connected)
                     {
-                        int size = 0;
+                        // Create a byte array the size of the incoming data and fill it with that data.
                         byte[] buff = new byte[client.Available];
-
-                        while ((size = client.Receive(buff)) > 0)
+                        while (client.Receive(buff) > 0)
                         {
-
-                            //byte[] recievedBytes = Byte.  new byte[size];
+                            //Fires the event with the recieved data, for it to be handled and transfered to the UI.
                             TextRecieved(buff);
                         }
                     }
@@ -78,43 +84,12 @@ namespace WinFormsApp_RSAReciever
                     client.Close();
                 }
             }
-
-
-
-            //try
-            //{
-            //    while (true)
-            //    {
-            //        if (client != null)
-            //        {
-
-            //            if (client.ReceiveBufferSize > 0)
-            //            {
-            //                byte[] buffer = new byte[client.ReceiveBufferSize];
-            //                var recieved = client.Receive(buffer, SocketFlags.None);
-
-
-            //                if (buffer != null)
-            //                {
-            //                    TextRecieved(buffer);
-            //                }
-            //            }
-            //            else if (!client.Connected)
-            //            {
-            //                ConnectToClient();
-            //            }
-            //        }
-
-            //    }
-            //}
-            //catch (Exception e)
-            //{
-
-            //    throw;
-            //}
-
         }
 
+        /// <summary>
+        /// Invokes an event, when a new message has been recieved.
+        /// </summary>
+        /// <param name="bytes"></param>
         public void TextRecieved(byte[] bytes = null)
         {
             ServerTextEvent?.Invoke(this, new ServerTextEventArgs(bytes));

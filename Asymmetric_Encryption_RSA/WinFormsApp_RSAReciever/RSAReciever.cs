@@ -9,7 +9,6 @@ namespace WinFormsApp_RSAReciever
         public RSAReciever()
         {
             InitializeComponent();
-            this.btnRetrieve.Enabled = false;
 
             encryptor = new Encryptor();
             encryptor.EncryptorTextHandledEvent += Encryptor_EncryptorTextHandledEvent;
@@ -17,10 +16,14 @@ namespace WinFormsApp_RSAReciever
             UpdateUI();
 
             encryptor.SetupServer();
-
-
         }
 
+        /// <summary>
+        /// A function triggered by an event invoked by the encryptor.
+        /// This is when it has recieved data from the socket, and decrypted the data for display.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Encryptor_EncryptorTextHandledEvent(object sender, EncryptorTextEventArgs e)
         {
             if (e.Text != null)
@@ -59,26 +62,6 @@ namespace WinFormsApp_RSAReciever
             this.tbIQ.Text = parameters[5];
             this.tbP.Text = parameters[6];
             this.tbQ.Text = parameters[7];
-        }
-
-        /// <summary>
-        /// On click, the message written it acquired, as well as decrypted with the private key. 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnRetrieve_Click(object sender, System.EventArgs e)
-        {
-            byte[] cipherBytes = encryptor.GetCipherBytes();
-
-            string decrypted = encryptor.DecryptBytes(cipherBytes);
-
-            this.tbCipherBytes.Text = Convert.ToBase64String(cipherBytes);
-            this.tbDecrypted.Text = decrypted;
-        }
-
-        private void RSAReciever_Shown(object sender, EventArgs e)
-        {
-            encryptor.StartListening();
         }
     }
 }

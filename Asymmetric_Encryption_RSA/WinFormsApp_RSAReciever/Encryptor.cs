@@ -10,7 +10,6 @@ namespace WinFormsApp_RSAReciever
 {
     internal class Encryptor
     {
-        private FileManager filer = new FileManager();
         private ServerConnection server;
 
         byte[] privateKey;
@@ -26,7 +25,6 @@ namespace WinFormsApp_RSAReciever
 
             //Save the private key and print the public key
             privateKey = rsa.ExportRSAPrivateKey();
-            //filer.PrintPublicKey(rsa.ToXmlString(false));
         }
 
         /// <summary>
@@ -52,17 +50,6 @@ namespace WinFormsApp_RSAReciever
             parameters[7] = BitConverter.ToString(rsaPara.Q);
 
             return parameters;
-        }
-
-        /// <summary>
-        /// Get the recieved bytes from the sender
-        /// </summary>
-        /// <returns></returns>
-        internal byte[] GetCipherBytes()
-        {
-            byte[] bytes = filer.GetRecievedBytes();
-
-            return bytes;
         }
         
         /// <summary>
@@ -90,6 +77,10 @@ namespace WinFormsApp_RSAReciever
             }
         }
 
+        /// <summary>
+        /// Setup the server and broadcast the public key
+        /// Followed by listening for a new conenction.
+        /// </summary>
         public void SetupServer()
         {
             using (var rsa = RSA.Create())
@@ -97,10 +88,11 @@ namespace WinFormsApp_RSAReciever
                 rsa.ImportRSAPrivateKey(privateKey, out _);
                 server = new ServerConnection(rsa.ExportRSAPublicKey());
                 server.ServerTextEvent += Server_ServerTextEvent;
+                StartListening();
             }
         }
 
-        public void StartListening()
+        private void StartListening()
         {
             Thread t1 = new Thread(server.StartRecieving);
             t1.Start();

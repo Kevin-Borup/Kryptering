@@ -10,7 +10,6 @@ namespace WinFormsApp_RSASender
 {
     internal class Encryptor
     {
-        private FileManager filer = new FileManager();
         byte[] publicKey;
         private ClientConnection server;
 
@@ -30,7 +29,6 @@ namespace WinFormsApp_RSASender
             server = new ClientConnection();
 
             rsa.ImportRSAPublicKey(server.GetPublicKey(), out _);
-            //rsa.FromXmlString(filer.GetXMLPublicData());
 
             publicKey = rsa.ExportRSAPublicKey();
 
@@ -42,6 +40,11 @@ namespace WinFormsApp_RSASender
             return publicData;
         }
 
+        /// <summary>
+        /// Send the recieved string to the server connection
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public byte[] SendText(string text)
         {
             byte[] encryptedData = EncryptText(text);
@@ -66,7 +69,6 @@ namespace WinFormsApp_RSASender
                 rsa.ImportRSAPublicKey(publicKey, out _);
 
                 byte[] encryptedData = rsa.Encrypt(dataToEncrypt, RSAEncryptionPadding.Pkcs1);
-                //filer.PrintMsg(encryptedData);
                 return encryptedData;
             }
         }

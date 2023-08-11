@@ -33,10 +33,8 @@ namespace WinFormsApp_RSASender
 
             if (!string.IsNullOrWhiteSpace(input))
             {
-                // The text is encrypted and displayed to the user.
-                byte[] cipherText = encryptor.EncryptText(input);
-
-                this.tbCipherText.Text = Convert.ToBase64String(cipherText);
+                // The text is sent and displayed to the user.
+                this.tbCipherText.Text = Convert.ToBase64String(encryptor.SendText(input));
             }
         }
 

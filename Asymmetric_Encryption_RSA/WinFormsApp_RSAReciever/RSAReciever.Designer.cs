@@ -281,6 +281,7 @@
             Controls.Add(label1);
             Name = "RSAReciever";
             Text = "PSA Reciever";
+            Shown += RSAReciever_Shown;
             ResumeLayout(false);
             PerformLayout();
         }

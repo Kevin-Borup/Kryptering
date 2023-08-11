@@ -12,6 +12,7 @@ namespace WinFormsApp_RSASender
     {
         private FileManager filer = new FileManager();
         byte[] publicKey;
+        private ClientConnection server;
 
         /// <summary>
         /// The RSA key is generated from the public key xml.
@@ -25,7 +26,11 @@ namespace WinFormsApp_RSASender
 
             using var rsa = RSA.Create();
             rsa.KeySize = 2048;
-            rsa.FromXmlString(filer.GetXMLPublicData());
+
+            server = new ClientConnection();
+
+            rsa.ImportRSAPublicKey(server.GetPublicKey(), out _);
+            //rsa.FromXmlString(filer.GetXMLPublicData());
 
             publicKey = rsa.ExportRSAPublicKey();
 
@@ -35,6 +40,15 @@ namespace WinFormsApp_RSASender
             publicData.Modulus = BitConverter.ToString(rsaPara.Modulus);
 
             return publicData;
+        }
+
+        public byte[] SendText(string text)
+        {
+            byte[] encryptedData = EncryptText(text);
+
+            server.SendMsg(encryptedData);
+
+            return encryptedData;
         }
 
         /// <summary>
@@ -52,7 +66,7 @@ namespace WinFormsApp_RSASender
                 rsa.ImportRSAPublicKey(publicKey, out _);
 
                 byte[] encryptedData = rsa.Encrypt(dataToEncrypt, RSAEncryptionPadding.Pkcs1);
-                filer.PrintMsg(encryptedData);
+                //filer.PrintMsg(encryptedData);
                 return encryptedData;
             }
         }

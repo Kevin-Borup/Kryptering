@@ -9,10 +9,39 @@ namespace WinFormsApp_RSAReciever
         public RSAReciever()
         {
             InitializeComponent();
+            this.btnRetrieve.Enabled = false;
 
             encryptor = new Encryptor();
+            encryptor.EncryptorTextHandledEvent += Encryptor_EncryptorTextHandledEvent;
 
             UpdateUI();
+
+            encryptor.SetupServer();
+
+
+        }
+
+        private void Encryptor_EncryptorTextHandledEvent(object sender, EncryptorTextEventArgs e)
+        {
+            if (e.Text != null)
+            {
+                string text = e.Text;
+
+                this.tbDecrypted.Invoke((MethodInvoker)delegate
+                {
+                    this.tbDecrypted.Text = text;
+                });
+            }
+
+            if (e.Bytes != null)
+            {
+                byte[] cipherBytes = e.Bytes;
+
+                this.tbCipherBytes.Invoke((MethodInvoker)delegate
+                {
+                    this.tbCipherBytes.Text = Convert.ToBase64String(cipherBytes);
+                });
+            }
         }
 
         /// <summary>
@@ -37,7 +66,7 @@ namespace WinFormsApp_RSAReciever
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnRetrieve_Click(object sender, EventArgs e)
+        private void btnRetrieve_Click(object sender, System.EventArgs e)
         {
             byte[] cipherBytes = encryptor.GetCipherBytes();
 
@@ -45,6 +74,11 @@ namespace WinFormsApp_RSAReciever
 
             this.tbCipherBytes.Text = Convert.ToBase64String(cipherBytes);
             this.tbDecrypted.Text = decrypted;
+        }
+
+        private void RSAReciever_Shown(object sender, EventArgs e)
+        {
+            encryptor.StartListening();
         }
     }
 }

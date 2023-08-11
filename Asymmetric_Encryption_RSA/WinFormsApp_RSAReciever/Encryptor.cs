@@ -4,25 +4,29 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace WinFormsApp_RSAReciever
 {
     internal class Encryptor
     {
         private FileManager filer = new FileManager();
+        private ServerConnection server;
 
         byte[] privateKey;
+
+        public delegate void EncryptorTextHandler(object sender, EncryptorTextEventArgs e);
+
+        public event EncryptorTextHandler EncryptorTextHandledEvent;
 
         public Encryptor()
         {
             using var rsa = RSA.Create();
             rsa.KeySize = 2048;
 
-            //Save the private key and print the publi
-
-
+            //Save the private key and print the public key
             privateKey = rsa.ExportRSAPrivateKey();
-            filer.PrintPublicKey(rsa.ToXmlString(false));
+            //filer.PrintPublicKey(rsa.ToXmlString(false));
         }
 
         /// <summary>
@@ -70,10 +74,47 @@ namespace WinFormsApp_RSAReciever
         {
             using (var rsa = RSA.Create())
             {
-                // Uses the private key to create a RSA, that is able to decrypt the text.
+                try
+                {
+                    // Uses the private key to create a RSA, that is able to decrypt the text.
+                    rsa.ImportRSAPrivateKey(privateKey, out _);
+                    byte[] decryptedBytes = rsa.Decrypt(cipherBytes, RSAEncryptionPadding.Pkcs1);
+                    return Encoding.UTF8.GetString(decryptedBytes);
+                }
+                catch (Exception)
+                {
+                    //Would be written in a log
+                    return string.Empty;
+                }
+                
+            }
+        }
+
+        public void SetupServer()
+        {
+            using (var rsa = RSA.Create())
+            {
                 rsa.ImportRSAPrivateKey(privateKey, out _);
-                byte[] decryptedBytes = rsa.Decrypt(cipherBytes, RSAEncryptionPadding.Pkcs1);
-                return Encoding.UTF8.GetString(decryptedBytes);
+                server = new ServerConnection(rsa.ExportRSAPublicKey());
+                server.ServerTextEvent += Server_ServerTextEvent;
+            }
+        }
+
+        public void StartListening()
+        {
+            Thread t1 = new Thread(server.StartRecieving);
+            t1.Start();
+        }
+
+        private void Server_ServerTextEvent(object sender, ServerTextEventArgs e)
+        {
+            if (e != null && e.Bytes != null)
+            {
+                byte[] recievedBytes = e.Bytes;
+
+                string decryptedText = DecryptBytes(recievedBytes);
+
+                EncryptorTextHandledEvent?.Invoke(this, new EncryptorTextEventArgs(decryptedText, recievedBytes));
             }
         }
     }
